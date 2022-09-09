@@ -1,5 +1,4 @@
-﻿
-using ChatService.Models;
+﻿using ChatService.Models;
 using Microsoft.AspNetCore.SignalR.Client;
 using System;
 using System.Collections.Generic;
@@ -17,7 +16,8 @@ namespace ChatClient
         public MessageClient(int id)
         {
             _id = id;
-            _hubConnection = new HubConnectionBuilder().WithUrl(new Uri("http://localhost:5077/hub/messages"))
+            _hubConnection = new HubConnectionBuilder()
+                .WithUrl(new Uri("http://localhost:5077/hub/messages"))
                 .WithAutomaticReconnect()
                 .Build();
             _hubConnection.StartAsync().Wait();
