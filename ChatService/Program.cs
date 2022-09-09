@@ -1,3 +1,7 @@
+using ChatService.Services.Impl;
+using ChatService.Services;
+using ChatService.Hubs;
+
 namespace ChatService
 {
     public class Program
@@ -5,9 +9,10 @@ namespace ChatService
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddSignalR();
 
             // Add services to the container.
-
+            builder.Services.AddSingleton<IMessageService, MessageService>();
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -26,6 +31,7 @@ namespace ChatService
 
 
             app.MapControllers();
+            app.MapHub<MessageHub>("/hub/messages");
 
             app.Run();
         }
